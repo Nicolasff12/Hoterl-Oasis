@@ -107,3 +107,6 @@ def delete_task(request, task_id):
     if request.method == 'POST':
         task.delete()
         return redirect('tasks')
+    
+def reserva(request):
+    return render(request, 'reserva.html')
