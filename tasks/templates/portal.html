@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Hotel Oasis - Inicio</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+    }
+    header {
+        background-color: #333;
+        color: #fff;
+        padding: 1rem 0;
+        text-align: center;
+    }
+    nav {
+        background-color: #444;
+        overflow: hidden;
+    }
+    nav a {
+        float: left;
+        display: block;
+        color: #fff;
+        text-align: center;
+        padding: 14px 20px;
+        text-decoration: none;
+    }
+    nav a:hover {
+        background-color: #ddd;
+        color: black;
+    }
+    .hero {
+        background-image: url('Images/hero-hotel.jpg');
+        background-size: cover;
+        background-position: center;
+        height: 250px;
+        width: 250px
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        text-shadow: 2px 2px 4px #000;
+    }
+    .hero h1 {
+        font-size: 3rem;
+    }
+    .content {
+        padding: 2rem;
+    }
+    .content h2 {
+        text-align: center;
+        margin-bottom: 1rem;
+    }
+    .content p {
+        text-align: center;
+        font-size: 1.2rem;
+    }
+    .rooms {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .room-card {
+        background-color: #fff;
+        margin: 1rem;
+        padding: 1rem;
+        width: 300px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    .room-card img {
+        width: 100%;
+        border-radius: 5px;
+    }
+    .room-card h3 {
+        margin-top: 0.5rem; 
+    }
+    footer {
+        background-color: #333;
+        color: #fff;
+        text-align: center;
+        padding: 1rem 0;
+        position: relative;
+        width: 100%;
+        bottom: 0;
+    }
+</style>
+<body>
+<header>
+    <h1> Bienvenido al Hotel Oasis</h1>
+</header>
+<nav>
+    <a href="#">Inicio</a>
+    <a href="/reservas">Reservas</a>
+    <a href="/checkin">Check-in / Check-out</a>
+    <a href="/contacto">Contacto</a>
+    <button class="admin-btn" onclick="location.href='/admin'">Admin</button>;
+</nav>
+
+<div class="content">
+    <section id="inicio">
+        <h2>Sobre Nosotros</h2>
+        <p>Disfruta de una experiencia inolvidable en Hotel Oasis, ofrecemos una experiencia única de relajación y confort, Wi-Fi gratuito en todas las áreas, distintos tipos de habitaciones y varios servicios. Estamos ubicados en el corazón de la ciudad, nuestro hotel es el lugar perfecto para descansar y disfrutar.</p>
+    </section>
+
+
+    <div class="content">
+        <section id="servicios" class="service-details">
+            <h2>Servicios del Hotel</h2>
+            <ul class="service-list">
+                <li>
+                    <h3>Spa y Bienestar</h3>
+                    <p>Disfruta de una experiencia relajante en nuestro spa, con una variedad de tratamientos de bienestar,
+                        masajes y sauna para revitalizar tu cuerpo y mente.</p>
+                </li>
+                <li>
+                    <h3>Restaurante Gourmet</h3>
+                    <p>Saborea lo mejor de la cocina internacional en nuestro restaurante gourmet, con menús diseñados por
+                        chefs galardonados y opciones para todos los gustos.</p>
+                </li>
+                <li>
+                    <h3>Piscina y Área de Recreación</h3>
+                    <p>Nuestra piscina al aire libre, rodeada de jardines tropicales, es el lugar perfecto para relajarte bajo
+                        el sol o disfrutar de una bebida en nuestro bar junto a la piscina.</p>
+                </li>
+                <li>
+                    <h3>Gimnasio y Clases de Yoga</h3>
+                    <p>Mantente en forma durante tu estancia con nuestro gimnasio equipado y nuestras clases de yoga al aire
+                        libre para comenzar el día con energía.</p>
+                </li>
+            </ul>
+        </section>
+    <section id="habitaciones">
+        <h2>Nuestras Habitaciones</h2>
+        <div class="rooms">
+            <div class="room-card">
+                <img src='Images/habitacion1.jpg' alt="Habitación Estándar">
+                <h3>Habitación Estándar</h3>
+                <p>Comodidad y sencillez para su estadía perfecta.</p>
+            </div>
+            <div class="room-card">
+                <img src="Images/habitacion2.jpg" alt="Habitación Deluxe">
+                <h3>Habitación Deluxe</h3>
+                <p>Amplias habitaciones con vista panorámica.</p>
+            </div>
+            <div class="room-card">
+                <img src="Images/habitacion3.jpg" alt="Suite">
+                <h3>Suite</h3>
+                <p>Lujo y elegancia en cada detalle.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="politicas" class="policy-details">
+        <h2>Políticas del Hotel</h2>
+        <ul class="policy-list">
+            <li>
+                <h3>Política de Cancelación</h3>
+                <p>Las cancelaciones realizadas con al menos 48 horas de antelación no generarán cargos. Si cancelas después
+                    de este periodo, se aplicará un cargo del 50% del total de la reserva.</p>
+            </li>
+            <li>
+                <h3>Check-in y Check-out</h3>
+                <p>El horario de check-in es a partir de las 3:00 PM y el check-out debe realizarse antes de las 12:00 PM.
+                    Late check-out está disponible con un costo adicional, sujeto a disponibilidad.</p>
+            </li>
+            <li>
+                <h3>Política de Mascotas</h3>
+                <p>Las mascotas son bienvenidas en áreas designadas del hotel. Se aplica un cargo adicional por mascota por
+                    noche. Los huéspedes deben informar al hotel con anticipación si planean traer mascotas.</p>
+            </li>
+            <li>
+                <h3>Política de No Fumar</h3>
+                <p>El Hotel Oasis es un espacio libre de humo. Está prohibido fumar en las habitaciones y áreas públicas.
+                    Se aplicarán cargos de limpieza adicionales si se infringe esta política.</p>
+            </li>
+        </ul>
+    </section>
+</div>
+<footer>
+    <p>&copy; 2024 Hotel Oasis. Todos los derechos reservados.
+</footer>
+
+</body>
+</html>
