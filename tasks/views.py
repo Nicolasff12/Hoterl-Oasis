@@ -6,6 +6,7 @@ from django.db import IntegrityError
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 from .models import Task
+from django.views.decorators.csrf import csrf_exempt
 
 from .forms import TaskForm
 
@@ -28,6 +29,7 @@ def signup(request):
                 return render(request, 'signup.html', {"form": UserCreationForm, "error": "Username already exists."})
 
         return render(request, 'signup.html', {"form": UserCreationForm, "error": "Passwords did not match."})
+
 
 
 @login_required
@@ -58,6 +60,17 @@ def create_task(request):
 
 def home(request):
     return render(request, 'home.html')
+
+def check_in(request):
+    return render(request, 'check_in.html')
+
+
+def check_out(request):
+    return render(request, 'check_out.html')
+
+
+def tarjetaRegistro(request):
+    return render(request, 'tarjetaRegistro.html')
 
 
 @login_required
@@ -107,3 +120,8 @@ def delete_task(request, task_id):
     if request.method == 'POST':
         task.delete()
         return redirect('tasks')
+
+@csrf_exempt
+def validar_ocr(request):
+     return render(request, 'validar_ocr.html')
+    

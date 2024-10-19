@@ -19,6 +19,10 @@ from tasks import views
 
 urlpatterns = [
     path('', views.home, name='home'),
+    path('check_in', views.check_in, name='Check_in'),
+    path('check_out', views.check_out, name='check_Out'),
+    path('tarjetaRegistro', views.tarjetaRegistro, name='tarjetaRegistro'),    
+    path('validar_ocr/', views.validar_ocr, name='validar_ocr'),
     path('admin/', admin.site.urls),
     path('signup/', views.signup, name='signup'),
     path('tasks/', views.tasks, name='tasks'),
