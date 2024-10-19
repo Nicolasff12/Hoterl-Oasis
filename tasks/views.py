@@ -128,3 +128,11 @@ def reserva(request):
 def validar_ocr(request):
      return render(request, 'validar_ocr.html')
     
+def hotel_view(request):
+    return render(request, 'portal.html')
+
+def principal(request):
+    obj=Hoteles.objects.all().values("nombre")
+    for i in obj:
+        response_var+=f"{i}"
+    return HttpResponse(response_var)

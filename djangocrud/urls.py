@@ -18,7 +18,7 @@ from django.urls import path
 from tasks import views
 
 urlpatterns = [
-    path('', views.home, name='home'),
+    path('', hotel_view, name='hotel'),
     path('check_in', views.check_in, name='Check_in'),
     path('check_out', views.check_out, name='check_Out'),
     path('tarjetaRegistro', views.tarjetaRegistro, name='tarjetaRegistro'),    
@@ -34,4 +34,5 @@ urlpatterns = [
     path('taks/<int:task_id>/complete', views.complete_task, name='complete_task'),
     path('tasks/<int:task_id>/delete', views.delete_task, name='delete_task'),
     path('reserva', views.reserva, name='reserva'),
+    
 ]
