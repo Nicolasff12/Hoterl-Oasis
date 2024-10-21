@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+    {% load static %}
 <head>
     <meta charset="UTF-8">
     <title>Hotel Oasis - Inicio</title>
@@ -39,7 +40,7 @@
         background-size: cover;
         background-position: center;
         height: 250px;
-        width: 250px
+        width: 250px;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -139,17 +140,18 @@
         <h2>Nuestras Habitaciones</h2>
         <div class="rooms">
             <div class="room-card">
-                <img src='Images/habitacion1.jpg' alt="Habitación Estándar">
+                <img src="{% static 'img/habitacion1.jpg' %}" alt="Habitación Estándar">
+                <img src="{% static 'img/habitacion1.jpg' %}"  alt="Habitación Estándar">
                 <h3>Habitación Estándar</h3>
                 <p>Comodidad y sencillez para su estadía perfecta.</p>
             </div>
             <div class="room-card">
-                <img src="Images/habitacion2.jpg" alt="Habitación Deluxe">
+                <img src="{% static 'img/habitacion2.jpg' %}"  alt="Habitación Deluxe">
                 <h3>Habitación Deluxe</h3>
                 <p>Amplias habitaciones con vista panorámica.</p>
             </div>
             <div class="room-card">
-                <img src="Images/habitacion3.jpg" alt="Suite">
+                <img src="{% static 'img/habitacion3.jpg' %}"  alt="Suite">
                 <h3>Suite</h3>
                 <p>Lujo y elegancia en cada detalle.</p>
             </div>

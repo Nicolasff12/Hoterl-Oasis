@@ -18,7 +18,7 @@ from django.urls import path
 from tasks import views
 
 urlpatterns = [
-    path('', hotel_view, name='hotel'),
+    path('', views.hotel_view, name='hotel'),
     path('check_in', views.check_in, name='Check_in'),
     path('check_out', views.check_out, name='check_Out'),
     path('tarjetaRegistro', views.tarjetaRegistro, name='tarjetaRegistro'),    
