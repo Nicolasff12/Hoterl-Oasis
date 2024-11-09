@@ -15,6 +15,15 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ms-auto">
         
+        
+
+        <li class="nav-item">
+          <a href="/" class="nav-link">Home</a>
+        </li>
+
+        <li class="nav-item">
+          <a href="/reserva" class="nav-link">Reserva</a>
+        </li>
         <li class="nav-item">
           <a href="/check_out" class="nav-link">Check-Out</a>
         </li>
@@ -22,13 +31,7 @@
         <li class="nav-item">
           <a href="/check_in" class="nav-link">Check-In</a>
         </li>
-
-        <li class="nav-item">
-          <a href="/" class="nav-link">Home</a>
-        </li>
-        <li class="nav-item">
-          <a href="/reserva" class="nav-link">Reserva</a>
-        </li>
+        
         {% if user.is_authenticated %}
         <li class="nav-item">
           <a href="{% url 'tasks_completed' %}" class="nav-link">complted tasks</a>
