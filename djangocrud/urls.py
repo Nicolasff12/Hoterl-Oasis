@@ -34,5 +34,6 @@ urlpatterns = [
     path('taks/<int:task_id>/complete', views.complete_task, name='complete_task'),
     path('tasks/<int:task_id>/delete', views.delete_task, name='delete_task'),
     path('reserva', views.reserva, name='reserva'),
+    path('contacto', views.contacto, name='contacto')
     
 ]

@@ -1,0 +1,99 @@
+{% extends 'base.html' %} {% block content %}
+<div class="row m-0 p-0">
+  <div class="col-12 p-0">
+    <div 
+    style="
+      background: linear-gradient(rgba(20, 19, 19, 0.643), rgba(65, 62, 62, 0)) 0% 0% / cover, url(https://res.cloudinary.com/logicaghl/image/upload/v1691088243/lobby_sonesta_bogota_2_33e44aadcb.jpg) center center no-repeat;
+      margin-top: 0em;
+      padding-bottom: 5em;
+      padding-right: 0px;
+      padding-top: 16em;
+      background-size: cover;
+  ">
+  </div>
+  </div>
+
+  <div class="col-md-10 mx-auto mt-5">
+    <label class="text-center w-100 h2 fw-bold">Contacto</label>
+    <label class="text-center w-100 h4 mt-3"> Los datos de contacto del <b>Hotel Oasis</b> te dan la oportunidad de plantearnos todas las dudas acerca de tu reserva de hotel de forma sencilla e inmediata. Diligencia el formulario web con tu consulta y uno de los miembros de nuestro equipo te responderá de forma totalmente personalizada. Solo aquí, la web del <b>Hotel Oasis</b>. </label>
+
+    <div class="col-12 mx-auto mt-5">
+      <div class="row m-0 align-items-center">
+        <div class="col-8 col-md-4 mx-auto order-1 order-md-0">
+          <div class="row m-0 align-items-center mt-2">
+            <span class="material-symbols-outlined w-auto p-0">mail</span>
+            <label class="w-75">
+              <a href="mailto:reservas.oasis@hoteloasis.com" class="text-decoration-none" style="color: black;">
+                reservas.oasis@hoteloasis.com
+              </a>
+            </label>
+          </div>
+          <div class="row m-0 align-items-center mt-2">
+            <span class="material-symbols-outlined w-auto p-0">call_quality</span>
+            <label class="w-75">
+              <a href="tel:601 6585500" class="text-decoration-none" style="color: black;">
+                57 601 6585500
+              </a>
+            </label>
+          </div>
+          <div class="row m-0 align-items-center mt-2">
+            <span class="material-symbols-outlined w-auto p-0">call</span>
+            <label class="w-75">
+              <a href="tel:305 228 1127" class="text-decoration-none" style="color: black;">
+                305 228 1127
+              </a>
+            </label>
+          </div>
+          <div class="row m-0 align-items-center mt-2">
+            <span class="material-symbols-outlined w-auto p-0">location_on</span>
+            <label class="w-75">
+                Carrera 15ª # 125 - 26
+            </label>
+          </div>
+        </div>
+        <div class="col-md-8 mx-auto mt-5 mt-md-0 order-0 order-md-1">
+          <h5 class="text-center">¿Tienes dudas o algo que contarnos?</h5>
+          <h6 class="text-center fst-italic">Escríbenos...</h6>
+          <div class="col-12 p-0">
+            <form class="row g-3 align-items-center" method="POST" action="{% url 'contacto' %}"> {% csrf_token %}
+              <!-- Input fields -->
+              <div class="col-md-6">
+                <label for="name" class="visually-hidden">Nombre</label>
+                <input type="text" class="form-control" name="name" id="name" value="{{ form.name.value }}" placeholder="Nombre" required /> {% if form.name.errors %} <div class="invalid-feedback" style="display: block !important"> {% for error in form.name.errors %} <p>{{ error }}</p> {% endfor %} </div> {% endif %}
+              </div>
+              <div class="col-md-6">
+                <label for="email" class="visually-hidden">Correo</label>
+                <input class="form-control" type="email" name="email" id="email" value="{{ form.email.value }}" placeholder="Correo Electronico" required /> {% if form.email.errors %} <div class="invalid-feedback" style="display: block !important"> {% for error in form.email.errors %} <p>{{ error }}</p> {% endfor %} </div> {% endif %}
+              </div>
+              <div class="col-md-4">
+                <label for="phone" class="visually-hidden">Telefono</label>
+                <input type="number" class="form-control" name="phone" id="phone" value="{{ form.phone.value }}" placeholder="Telefono" required /> {% if form.phone.errors %} <div class="invalid-feedback" style="display: block !important"> {% for error in form.phone.errors %} <p>{{ error }}</p> {% endfor %} </div> {% endif %}
+              </div>
+              <div class="col-md-8">
+                <select class="form-select" name="subject" id="subject" required>
+                  <option selected>Asunto</option>
+                  <option value="1" {% if form.subject.value == '1' %}selected{% endif %}>Cotización Alojamiento</option>
+                  <option value="2" {% if form.subject.value == '2' %}selected{% endif %}>Cotización Evento</option>
+                  <option value="3" {% if form.subject.value == '3' %}selected{% endif %}>Objeto olvidado</option>
+                  <option value="4" {% if form.subject.value == '4' %}selected{% endif %}>Pregunta general</option>
+                  <option value="5" {% if form.subject.value == '5' %}selected{% endif %}>Queja</option>
+                  <option value="6" {% if form.subject.value == '6' %}selected{% endif %}>Reserva alojamiento</option>
+                  <option value="7" {% if form.subject.value == '7' %}selected{% endif %}>Reserva evento</option>
+                  <option value="8" {% if form.subject.value == '8' %}selected{% endif %}>Solicitud especial</option>
+                </select>
+              </div>
+              <div class="col-md-12">
+                  <textarea class="form-control"  name='message' aria-label="With textarea"  id="message" value="{{ form.message.value }}" placeholder="Mensaje" required></textarea>
+{% if form.message.errors %} <div class="invalid-feedback" style="display: block !important"> {% for error in form.message.errors %} <p>{{ error }}</p> {% endfor %} </div> {% endif %}
+              </div>
+              <div class="col-md-6 mx-auto">
+                <button type="submit" class="btn btn-primary mb-3 w-100"> Enviar Mensaje </button>
+              </div>
+            </form>
+          </div>
+          <small>* Nuestro equipo se pondrá en contacto en las próximas horas</small>
+        </div>
+      </div>
+    </div>
+  </div> {% endblock %}
+</div>

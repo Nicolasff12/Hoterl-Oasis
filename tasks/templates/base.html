@@ -5,16 +5,30 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Django CRUD</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/tasks/templates/css/">
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Symbols+Outlined"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/tasks/templates/css/" />
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"></script>
-    
   </head>
+
   <body>
-    {% include '_navbar.html' %}
-   
+    {% block dynamic-block %} {% if nav_2 %}
+    <!-- -->
+    {% include '_navbar2.html' %} {% else %}
+    <!-- -->
+    {% include '_navbar.html' %} {% endif %} {% endblock %}
+    <!--  -->
+
     {% block content %}
-      
+    <!--  -->
     {% endblock %}
+    <!--  -->
+    <footer class="mt-5">Hotel Oasis - Todos los derechos reservados</footer>
   </body>
 </html>
