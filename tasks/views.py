@@ -6,9 +6,11 @@ from django.db import IntegrityError
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 from .models import Task
+from .models import Contact
 from django.views.decorators.csrf import csrf_exempt
 
 from .forms import TaskForm
+from .forms import ContactForm
 
 # Create your views here.
 
@@ -123,6 +125,43 @@ def delete_task(request, task_id):
     
 def reserva(request):
     return render(request, 'reserva.html')
+
+def contacto(request):
+    nav_2 = 'true'
+    print(f"Request method: {request.method}")
+
+    if request.method == 'GET':
+        return render(request, 'contacto.html', {'nav_2': nav_2})
+
+    elif request.method == 'POST':
+        try:
+            form = ContactForm(request.POST)
+            data = request.POST
+
+            print(data)
+            if form.is_valid():
+                new_contact = Contact(
+                    name=data['name'],
+                    email=data['email'],
+                    phone=data['phone'],
+                    subject=data['subject'],
+                    message=data['message'],
+                )
+                
+                new_contact.save()
+            else:
+                print(form.errors)  # This will print form validation errors to the console
+                return render(request, 'contacto.html', {'form': form, 'error': 'Informacion erronea'})
+
+            return redirect('hotel')
+
+        except IntegrityError:
+            # If there's an IntegrityError (e.g., duplicate username), render the form with an error message
+            return render(request, 'signup.html', {"form": UserCreationForm(), "error": "Username already exists."})
+
+    return render(request, 'contacto.html')  # Default render for the GET method if no other condition matches
+    #     return render(request, 'signup.html', {"form": UserCreationForm, "error": "Passwords did not match."})
+
 
 @csrf_exempt
 def validar_ocr(request):
