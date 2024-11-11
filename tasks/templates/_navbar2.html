@@ -1,49 +1,76 @@
-<body>
-  <nav class="navbar navbar-expand-lg bg-body-tertiary">
-    <div class="container-fluid justify-content-around">
-      <a class="navbar-brand" href="/">
-        <label class="h1 text-white fw-bold m-0 p-0">Hotel Oasis</label>
-      </a>
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-bs-toggle="collapse"
-        data-bs-target="#navbarScroll"
-        aria-controls="navbarScroll"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
+<style>
+  nav {
+    background-color: #444;
+    overflow: hidden;
+  }
+  nav a {
+    float: left;
+    display: block;
+    color: #fff;
+    text-align: center;
+    padding: 14px 20px;
+    text-decoration: none;
+  }
+  nav a:hover {
+    background-color: #ddd;
+    color: black;
+  }
+</style>
+
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid justify-content-around">
+    <a class="navbar-brand" href="/">
+      <label class="h2 text-white fw-bold m-0 p-0">Hotel Oasis</label>
+    </a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarScroll"
+      aria-controls="navbarScroll"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="col-5 p-0 d-none d-md-block"></div>
+    <div class="collapse navbar-collapse" id="navbarScroll">
+      <ul
+        class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll"
+        style="--bs-scroll-height: 100px"
       >
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarScroll">
-        <ul
-          class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll"
-          style="--bs-scroll-height: 100px"
-        >
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/">
-              <label class="m-0 p-0 text-white fw-bold"> Inicio </label>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/reservas">
-              <label class="m-0 p-0 text-white fw-bold"> Reservas </label>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/checkin">
-              <label class="m-0 p-0 text-white fw-bold">
-                Check-in / Check-out
-              </label>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/contacto">
-              <label class="m-0 p-0 text-white fw-bold"> Contacto </label>
-            </a>
-          </li>
-        </ul>
-      </div>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/">
+            <label class="m-0 p-0 text-white fw-bold"> Inicio </label>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/reservas">
+            <label class="m-0 p-0 text-white fw-bold"> Reservas </label>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/checkin">
+            <label class="m-0 p-0 text-white fw-bold">
+              Check-in / Check-out
+            </label>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/contacto">
+            <label class="m-0 p-0 text-white fw-bold"> Contacto </label>
+          </a>
+        </li>
+        <li class="nav-item">
+          <button
+            class="btn btn-outline-info px-5 mx-3"
+            type="button"
+            onclick="location.href='/admin'"
+          >
+            Administración
+          </button>
+        </li>
+      </ul>
     </div>
-  </nav>
-</body>
+  </div>
+</nav>
