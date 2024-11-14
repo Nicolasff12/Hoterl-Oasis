@@ -21,6 +21,7 @@ urlpatterns = [
     path('', views.hotel_view, name='hotel'),
     path('check_in', views.check_in, name='Check_in'),
     path('check_out', views.check_out, name='check_Out'),
+    path('reserva/', views.hacer_reserva, name='hacer_reserva'),
     path('tarjetaRegistro', views.tarjetaRegistro, name='tarjetaRegistro'),    
     path('validar_ocr/', views.validar_ocr, name='validar_ocr'),
     path('admin/', admin.site.urls),
@@ -33,6 +34,7 @@ urlpatterns = [
     path('tasks/<int:task_id>', views.task_detail, name='task_detail'),
     path('taks/<int:task_id>/complete', views.complete_task, name='complete_task'),
     path('tasks/<int:task_id>/delete', views.delete_task, name='delete_task'),
+    path('reserva_form', views.reserva_form, name='reserva_form'),
     path('reserva', views.reserva, name='reserva'),
     path('contacto', views.contacto, name='contacto')
     

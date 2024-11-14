@@ -123,8 +123,8 @@ def delete_task(request, task_id):
         task.delete()
         return redirect('tasks')
     
-def reserva(request):
-    return render(request, 'reserva.html')
+def reserva_form(request):
+    return render(request, 'reserva_form.html')
 
 def contacto(request):
     nav_2 = 'true'
@@ -175,3 +175,63 @@ def principal(request):
     for i in obj:
         response_var+=f"{i}"
     return HttpResponse(response_var)
+
+#CRUDE RESERVA 
+
+
+from django.shortcuts import render, get_object_or_404, redirect
+from .models import Huespedes
+from .forms import HuespedesForm
+
+# Crear un producto
+def create_huesped(request):
+    form = HuespedesForm(request.POST or None)
+    if form.is_valid():
+        form.save()
+        return redirect('huesped_list')
+    return render(request, 'myapp/huesped_form.html', {'form': form})
+
+# Leer (listar) los huéspedes
+def huesped_list(request):
+    huespedes = Huespedes.objects.all()
+    return render(request, 'myapp/huesped_list.html', {'huespedes': huespedes})
+
+# Actualizar un huésped
+def update_huesped(request, pk):
+    huesped = get_object_or_404(Huespedes, pk=pk)
+    form = HuespedesForm(request.POST or None, instance=huesped)
+    if form.is_valid():
+        form.save()
+        return redirect('huesped_list')
+    return render(request, 'myapp/huesped_form.html', {'form': form})
+
+# Eliminar un huésped
+def delete_huesped(request, pk):
+    huesped = get_object_or_404(Huespedes, pk=pk)
+    if request.method == 'POST':
+        huesped.delete()
+        return redirect('huesped_list')
+    return render(request, 'myapp/huesped_confirm_delete.html', {'huesped': huesped})
+
+
+#Crear reserva
+
+from django.shortcuts import render, redirect
+from .models import Reserva  # Importa tu modelo Reserva
+from django.http import HttpResponse
+from django.shortcuts import render, redirect
+from django.http import HttpResponse
+from .forms import ReservaForm
+
+def hacer_reserva(request):
+    if request.method == "POST":
+        form = ReservaForm(request.POST)
+        if form.is_valid():
+            form.save()  # Guarda el formulario directamente en la base de datos
+            return HttpResponse("Reserva guardada correctamente.", status=201)
+        else:
+            # Muestra los errores de validación
+            return render(request, 'reserva_form.html', {'form': form})
+    else:
+        form = ReservaForm()
+        return render(request, 'reserva_form.html', {'form': form})

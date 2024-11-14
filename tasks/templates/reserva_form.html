@@ -1,3 +1,7 @@
+{% extends "base.html" %}
+
+{% block content %}
+
 <!DOCTYPE html>
 <html lang="es">
   <head>
@@ -29,7 +33,7 @@
 
     <!-- Sección principal para la reserva -->
     <section class="reserva-hotel">
-      <form class="form-reserva">
+      <form class="form-reserva" action="/reserva/" method="POST">
         <label for="nombre">Nombre:</label>
         <input type="text" id="nombre" name="nombre" required />
 
@@ -99,3 +103,4 @@
     </footer>
   </body>
 </html>
+{% endblock %}

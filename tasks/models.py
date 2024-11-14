@@ -5,8 +5,8 @@ from django.utils.translation import gettext_lazy as _
 # Create your models here.
 
 class Task(models.Model):
-  title = models.CharField(max_length=200)
-  description = models.TextField(max_length=1000)
+  title = models.CharField(max_length=201)
+  description = models.TextField(max_length=1001)
   created = models.DateTimeField(auto_now_add=True)
   datecompleted = models.DateTimeField(null=True, blank=True)
   important = models.BooleanField(default=False)
@@ -15,18 +15,33 @@ class Task(models.Model):
   def __str__(self):
     return self.title + ' - ' + self.user.username
 
+
+
+class Reserva(models.Model):
+    nombre = models.CharField(max_length=101)
+    identificacion = models.CharField(max_length=21)
+    email = models.EmailField()
+    telefono = models.CharField(max_length=16)
+    checkin = models.DateField()
+    checkout = models.DateField()
+    habitacion = models.CharField(max_length=21)
+    adultos = models.IntegerField()
+
+    def __str__(self):
+        return f"Reserva de {self.nombre} - {self.checkin} a {self.checkout}"
+
 class Huespedes (models.Model):
-    nombre=models.CharField(max_length=50)
-    apellido=models.CharField(max_length=50)
-    email=models.CharField(max_length=50)
+    nombre=models.CharField(max_length=51)
+    apellido=models.CharField(max_length=51)
+    email=models.CharField(max_length=51)
     tipo_documento=models.CharField(max_length=2)
     numero_documento=models
 
 class Personal (models.Model):
-    nombre=models.CharField(max_length=50)
-    apellido=models.CharField(max_length=50)
-    email=models.CharField(max_length=50)
-    contraseña=models.CharField(max_length=20)
+    nombre=models.CharField(max_length=51)
+    apellido=models.CharField(max_length=51)
+    email=models.CharField(max_length=51)
+    contraseña=models.CharField(max_length=21)
     nombreHotel = models.ForeignKey('Hoteles' ,on_delete=models.SET_NULL,null=True)
 
     def __str__(self):
@@ -54,8 +69,15 @@ class Contact (models.Model):
     
 
 class Hoteles (models.Model):
-    nombre=models.CharField(max_length=50)
-    direccion=models.CharField(max_length=50)
+    nombre=models.CharField(max_length=51)
+    direccion=models.CharField(max_length=51)
 
     def __str__(self):
         return self.nombre
+
+
+    
+
+   
+    
+    

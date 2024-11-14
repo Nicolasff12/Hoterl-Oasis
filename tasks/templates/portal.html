@@ -1,3 +1,8 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
 <!DOCTYPE html>
 <html lang="es">
     {% load static %}
@@ -95,13 +100,7 @@
 <header>
     <h1> Bienvenido al Hotel Oasis</h1>
 </header>
-<nav>
-    <a href="#">Inicio</a>
-    <a href="/reservas">Reservas</a>
-    <a href="/checkin">Check-in / Check-out</a>
-    <a href="/contacto">Contacto</a>
-    <button class="admin-btn" onclick="location.href='/admin'">Admin</button>;
-</nav>
+
 
 <div class="content">
     <section id="inicio">
@@ -190,3 +189,4 @@
 
 </body>
 </html>
+{% endblock %}
