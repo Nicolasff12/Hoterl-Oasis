@@ -14,14 +14,14 @@
                         {% csrf_token %}
                         <div class="col-md-6">
                             <label for="documento_adjunto" class="form-label">Adjuntar documento de identidad:</label>
-                            <input type="file" class="form-control" id="documento_adjunto" name="documento_adjunto" accept=".pdf,.jpg,.jpeg,.png" required>
+                            <input type="file" class="form-control" id="documento_adjunto" name="documento_adjunto" accept=".jpg,.jpeg,.png,.pdf" required>
                             <div class="invalid-feedback">
                                 Por favor, adjunta un documento de identidad.
                             </div>
 
-                            <!-- Primer botón: Validar -->
+                            <!-- Botón para Validar OCR -->
                             <div class="col-12">
-                                <button class="btn btn-primary" type="submit">Validar OCR</button>
+                                <button class="btn btn-primary" type="button" id="validar_ocr_btn">Validar OCR</button>
                             </div>
 
                             <!-- Formulario de datos personales -->
@@ -59,5 +59,35 @@
         </div>
     </div>
 </div>
+
+<script>
+    document.getElementById('validar_ocr_btn').addEventListener('click', function() {
+        var formData = new FormData();
+        formData.append("documento_adjunto", document.getElementById('documento_adjunto').files[0]);
+
+        fetch("{% url 'procesar_cedula' %}", {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'X-CSRFToken': '{{ csrf_token }}'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.nombre) {
+                document.getElementById('nombre').value = data.nombre;
+                document.getElementById('apellido').value = data.apellido;
+                document.getElementById('id').value = data.id;
+                document.getElementById('fecha_nacimiento').value = data.fecha_nacimiento;
+            } else {
+                alert('Error al procesar la cédula');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Hubo un error con el OCR.');
+        });
+    });
+</script>
 
 {% endblock %}

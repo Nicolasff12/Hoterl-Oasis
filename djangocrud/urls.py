@@ -37,8 +37,8 @@ urlpatterns = [
     path('reserva', views.reserva_form, name='reserva'),
     path('reservar/', views.hacer_reserva, name='reservar'),
     path('checkin/', views.validar_checkin, name='checkin'),
-    path('tarjetaRegistro/<int:id>/', views.tarjeta_registro, name='tarjeta_registro')
-
+    path('tarjetaRegistro/<int:id>/', views.tarjeta_registro, name='tarjeta_registro'),
+    path('procesar-cedula/', views.procesar_cedula, name='procesar_cedula'),
      
     
 

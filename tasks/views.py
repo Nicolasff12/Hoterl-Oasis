@@ -11,6 +11,12 @@ from django.views.decorators.csrf import csrf_exempt
 
 from .forms import TaskForm
 from .forms import ContactForm
+from django.shortcuts import render
+from django.http import JsonResponse
+import pytesseract
+from PIL import Image
+import io
+import re
 
 # Create your views here.
 
@@ -313,3 +319,83 @@ def checkin(request):
             return redirect('checkin')
 
     return render(request, 'checkin.html')
+
+
+
+
+
+
+
+
+import re
+from django.http import JsonResponse
+from PIL import Image
+import pytesseract
+
+def procesar_cedula(request):
+    if request.method == 'POST' and 'documento_adjunto' in request.FILES:
+        # Cargar el archivo de la cédula
+        documento = request.FILES['documento_adjunto']
+        img = Image.open(documento)
+
+        # Extraer texto con OCR
+        texto_ocr = pytesseract.image_to_string(img)
+
+        # Limpiar el texto extraído
+        texto_ocr = re.sub(r'[^A-Za-z0-9\s\.\-:]', ' ', texto_ocr)  # Quitar caracteres no alfanuméricos
+        texto_ocr = re.sub(r'\s+', ' ', texto_ocr).strip()  # Reducir espacios múltiples a uno solo
+        print("Texto OCR limpio:\n", texto_ocr)
+
+        # Corregir posibles errores comunes del OCR en el texto
+        texto_ocr = texto_ocr.replace("APeuigos", "APELLIDOS")  # Corregir "APeuigos"
+        texto_ocr = texto_ocr.replace("wovero", "NUMERO")  # Corregir "wovero" a "NUMERO"
+        texto_ocr = texto_ocr.replace("reibisam", "NOMBRES")  # Corregir "reibisam"
+        print("Texto OCR corregido:\n", texto_ocr)
+
+        # Dividir el texto en líneas para facilitar la búsqueda de datos clave
+        lineas = texto_ocr.splitlines()
+
+        # Inicializar los datos
+        datos = {'id': None, 'nombre': None, 'apellido': None, 'fecha_nacimiento': None}
+
+        # Buscar línea por línea los datos relevantes
+        for i, linea in enumerate(lineas):
+            # Buscar número de identificación (sin puntos)
+            if not datos['id']:
+                match = re.search(r'\b\d{1,3}(\.\d{3}){2,3}\b', linea)
+                if match:
+                    # Eliminar los puntos del número de identificación
+                    datos['id'] = match.group().replace('.', '')
+
+            # Buscar fecha de nacimiento (formato 28-SEP-2000)
+            if not datos['fecha_nacimiento']:
+                match = re.search(r'\d{2}-[A-Z]{3}-\d{4}', linea)
+                if match:
+                    # Reemplazar guiones por barras
+                    datos['fecha_nacimiento'] = match.group().replace('-', '/')
+
+            # Buscar apellido y nombre (después de la palabra "APELLIDOS")
+            if 'APELLIDOS' in linea:
+                partes = linea.split('APELLIDOS')
+                if len(partes) > 1:
+                    datos['apellido'] = partes[1].strip()  # Los apellidos
+                    nombre_apellido = datos['apellido'].split()
+                    if len(nombre_apellido) > 1:
+                        datos['apellido'] = nombre_apellido[0]  # Primer apellido
+                        datos['nombre'] = " ".join(nombre_apellido[1:])  # Nombre completo
+                    else:
+                        datos['nombre'] = datos['apellido']  # En caso que no haya nombre
+
+        # Imprimir los resultados extraídos para depuración
+        print("Datos extraídos:", datos)
+
+        # Validar si se encontraron todos los datos
+        if not all([datos['id'], datos['fecha_nacimiento'], datos['apellido']]):  # Validar que al menos ID, fecha y apellido estén presentes
+            print("Error: No se encontraron todos los datos:", datos)  # Depuración
+            return JsonResponse({'error': 'No se pudo extraer toda la información de la cédula.', 'datos': datos}, status=400)
+
+        # Devolver los datos como respuesta JSON
+        return JsonResponse(datos)
+
+    # Manejar caso donde no se envía un archivo
+    return JsonResponse({'error': 'No se subió ningún documento'}, status=400)
