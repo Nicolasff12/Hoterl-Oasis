@@ -10,7 +10,7 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-body">
-                    <form class="row g-3 needs-validation" method="POST" action="{% url 'checkin' %}" novalidate>
+                    <form class="row g-3 needs-validation" method="POST" action="{% url 'checkin' %}" enctype="multipart/form-data" novalidate>
                         {% csrf_token %}
                         <div class="col-md-6">
                             <label for="documento_adjunto" class="form-label">Adjuntar documento de identidad:</label>
@@ -18,12 +18,12 @@
                             <div class="invalid-feedback">
                                 Por favor, adjunta un documento de identidad.
                             </div>
-
+                    
                             <!-- Botón para Validar OCR -->
                             <div class="col-12">
                                 <button class="btn btn-primary" type="button" id="validar_ocr_btn">Validar OCR</button>
                             </div>
-
+                    
                             <!-- Formulario de datos personales -->
                             <div>
                                 <label for="nombre">Nombre:</label>
@@ -37,23 +37,20 @@
                                 <label for="id">Identificación (Cédula):</label>
                                 <input type="text" class="form-control" id="id" name="id" required>
                             </div>
-                            <div>
-                                <label for="fecha_nacimiento">Fecha de nacimiento:</label>
-                                <input type="date" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento" required>
-                            </div>
-
+                    
                             <div>
                                 <label for="numero_reserva">Número de reserva (opcional)</label>
                                 <input type="text" class="form-control" id="numero_reserva" name="numero_reserva">
                             </div>
-
+                    
                             <!-- Segundo botón: Validar Reserva -->
                             <div class="col-12">
                                 <button class="btn btn-success" type="submit" name="action" value="validar_reserva">Validar Reserva</button>
                             </div>
-
+                    
                         </div>
                     </form>
+                    
                 </div>
             </div>
         </div>
