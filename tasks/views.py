@@ -272,10 +272,9 @@ def validar_checkin(request):
         except Reserva.DoesNotExist:
             # Muestra un mensaje de error si no encuentra la reserva
             messages.error(request, "No se encontró una reserva con esa cédula.")
-            return render(request, 'checkin.html')
+            return render(request, 'check_in.html')
 
-    return render(request, 'checkin.html')  # Si no es
-
+    return render(request, 'check_in.html')  # Si no es una solicitud POST, se muestra la página
 
 def tarjeta_registro(request, id):
     reserva = Reserva.objects.get(id=id)
@@ -286,6 +285,9 @@ def tarjeta_registro(request, id):
     })
 
 
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from .models import Reserva
 
 def checkin(request):
     if request.method == "POST":
@@ -304,22 +306,21 @@ def checkin(request):
                     # Si solo hay una reserva, la seleccionamos
                     reserva = reservas.first()
                     # Pasar los datos de la reserva a la plantilla
-                    return render(request, 'tarjeta_registro.html', {'reserva': reserva})
+                    return render(request, 'check_in.html', {'reserva': reserva})
                 else:
                     # Si hay múltiples reservas, mostramos un mensaje de error
                     messages.error(request, "Se encontraron múltiples reservas con la misma identificación. Por favor, verifica los datos.")
-                    return redirect('checkin')
+                    return render(request, 'check_in.html')  # Mantener en la misma página
             else:
                 messages.error(request, "No se encontró ninguna reserva con esa identificación.")
-                return redirect('checkin')
+                return render(request, 'check_in.html')  # Mantener en la misma página
 
         elif action == 'validar_ocr':
             # Lógica futura para validación con OCR (por ahora solo muestra un mensaje)
             messages.success(request, "Funcionalidad de OCR en proceso.")
-            return redirect('checkin')
+            return render(request, 'check_in.html')  # Mantener en la misma página
 
-    return render(request, 'checkin.html')
-
+    return render(request, 'check_in.html')  # Mantener en la misma página
 
 
 
@@ -349,20 +350,24 @@ def procesar_cedulas(request):
             texto_ocr = re.sub(r'[^A-Za-z0-9\s\.\-:]', ' ', texto_ocr)  # Eliminar caracteres no alfanuméricos
             texto_ocr = re.sub(r'\s+', ' ', texto_ocr).strip()
 
-            # Buscar el número de cédula (ID)
+            # Buscar el número de cédula (ID) usando una expresión regular más robusta
             match = re.search(r'\b\d{1,3}(\.\d{3}){2,3}\b', texto_ocr)
             if match:
-                cedula = match.group().replace('.', '')
+                cedula = match.group().replace('.', '')  # Limpiar la cédula
             else:
                 cedula = None
 
-            # Buscar el nombre y apellido (asegurando el formato)
+            # Buscar el nombre y apellido
             nombre_apellido_match = re.search(r'([A-Z]+(?: [A-Z]+)*) PELLUIDOS ([A-Z]+(?: [A-Z]+)*)', texto_ocr)
             if nombre_apellido_match:
                 apellido = nombre_apellido_match.group(1)
                 nombre = nombre_apellido_match.group(2)
             else:
                 nombre = apellido = None
+
+            # Si no se encuentra la cédula o los datos, retornar un error
+            if not cedula or not nombre or not apellido:
+                return JsonResponse({'error': 'Cédula no encontrada o datos incompletos'}, status=404)
 
             # Devolver los datos en formato JSON
             return JsonResponse({
