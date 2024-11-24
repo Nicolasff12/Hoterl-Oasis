@@ -33,7 +33,9 @@
 
     <!-- Sección principal para la reserva -->
     <section class="reserva-hotel">
-      <form class="form-reserva" action="/reserva/" method="POST">
+      <form class="form-reserva" action="{% url 'reservar' %}" method="POST">
+          {% csrf_token %}
+      
         <label for="nombre">Nombre:</label>
         <input type="text" id="nombre" name="nombre" required />
 
@@ -59,25 +61,25 @@
           <option value="suite">Suite</option>
         </select>
         <label for="habitacion">Adultos:</label>
-        <select id="Personas" name="Adultos" required>
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
-          <option value="6">6</option>
-        </select>
-        <label for="habitacion">Menores:</label>
-        <select id="Personas" name="Adultos" required>
-          <option value="0">0</option>
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
-          <option value="6">6</option>
+        <select id="Personas" name="adultos" required>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
         </select>
 
+        <label for="habitacion">Menores:</label>
+        <select id="Personas" name="menores" required>
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+        </select>
         <button type="submit">Reservar ahora</button>
       </form>
     </section>

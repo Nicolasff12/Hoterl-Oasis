@@ -16,19 +16,27 @@ class Task(models.Model):
     return self.title + ' - ' + self.user.username
 
 
-
 class Reserva(models.Model):
-    nombre = models.CharField(max_length=101)
-    identificacion = models.CharField(max_length=21)
+    nombre = models.CharField(max_length=100)
+    identificacion = models.CharField(max_length=20, unique=True)
     email = models.EmailField()
-    telefono = models.CharField(max_length=16)
+    telefono = models.CharField(max_length=15)
     checkin = models.DateField()
     checkout = models.DateField()
-    habitacion = models.CharField(max_length=21)
-    adultos = models.IntegerField()
+    habitacion = models.CharField(max_length=50, choices=[
+        ('individual', 'Individual'),
+        ('doble', 'Doble'),
+        ('suite', 'Suite'),
+    ])
+    adultos = models.PositiveIntegerField()  # Número de adultos
+    menores = models.PositiveIntegerField()  # Número de niños
 
     def __str__(self):
-        return f"Reserva de {self.nombre} - {self.checkin} a {self.checkout}"
+        return f"{self.nombre} - {self.habitacion}"
+    
+    @property
+    def total_huespedes(self):
+        return self.adultos + self.menores  # Suma de adultos y niños
 
 class Huespedes (models.Model):
     nombre=models.CharField(max_length=51)
@@ -76,8 +84,4 @@ class Hoteles (models.Model):
         return self.nombre
 
 
-    
-
-   
-    
     

@@ -1,16 +1,16 @@
-{% extends 'base.html' %} {% block content %}
+{% extends 'base.html' %} 
+{% block content %}
 
 <div class="container">
     <h1>Check-In</h1>
 </div>
-
 
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
                 <div class="card-body">
-                    <form class="row g-3 needs-validation" novalidate>
+                    <form class="row g-3 needs-validation" method="POST" action="{% url 'checkin' %}" novalidate>
                         {% csrf_token %}
                         <div class="col-md-6">
                             <label for="documento_adjunto" class="form-label">Adjuntar documento de identidad:</label>
@@ -19,37 +19,39 @@
                                 Por favor, adjunta un documento de identidad.
                             </div>
 
+                            <!-- Primer botón: Validar -->
                             <div class="col-12">
-                                <button class="btn btn-primary" type="button" id="validar-btn">Validar</button>
+                                <button class="btn btn-primary" type="submit">Validar OCR</button>
                             </div>
-                        
+
+                            <!-- Formulario de datos personales -->
                             <div>
                                 <label for="nombre">Nombre:</label>
-                                <input type="text" class="form-control" id="nombre" name="nombre" required s>
+                                <input type="text" class="form-control" id="nombre" name="nombre" required>
                             </div>
                             <div>
                                 <label for="apellido">Apellido:</label>
                                 <input type="text" class="form-control" id="apellido" name="apellido" required>
                             </div>
                             <div>
-                                <label for="id">Identificacion:</label>
+                                <label for="id">Identificación (Cédula):</label>
                                 <input type="text" class="form-control" id="id" name="id" required>
                             </div>
                             <div>
                                 <label for="fecha_nacimiento">Fecha de nacimiento:</label>
                                 <input type="date" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento" required>
                             </div>
-                    
-                            
-                            <div>
-                                <label for="numero_reserva">Número de reserva</label>
-                                <input type="text" class="form-control" id="numero_reserva" name="numero_reserva" required>
-                            </div>
-                            
-                        </div>
 
-                        <div class="col-12">
-                            <a  href="/tarjetaRegistro" class="btn btn-primary" type="submit">Enviar</a>
+                            <div>
+                                <label for="numero_reserva">Número de reserva (opcional)</label>
+                                <input type="text" class="form-control" id="numero_reserva" name="numero_reserva">
+                            </div>
+
+                            <!-- Segundo botón: Validar Reserva -->
+                            <div class="col-12">
+                                <button class="btn btn-success" type="submit" name="action" value="validar_reserva">Validar Reserva</button>
+                            </div>
+
                         </div>
                     </form>
                 </div>
@@ -58,39 +60,4 @@
     </div>
 </div>
 
-
-<script>
-    document.getElementById('validar-btn').addEventListener('click', function() {
-        const file = document.getElementById('documento_adjunto').files[0];
-
-        if (!file) {
-            alert('Por favor, seleccione un documento de identidad.');
-            return;
-        }
-
-        const formData = new FormData();
-        formData.append('documento_adjunto', file);
-
-        fetch('/validar_ocr/', {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.valid) {
-                // Actualizar todos los campos del formulario
-                document.getElementById('nombre').value = data.data.nombre;
-                document.getElementById('apellido').value = data.data.apellido;
-                document.getElementById('numero_documento').value = data.data.numero_documento;
-                document.getElementById('fecha_nacimiento').value = data.data.fecha_nacimiento;
-                // ... actualizar otros campos
-            } else {
-                alert('Los datos extraídos no son válidos.');
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
-    });
-</script>
 {% endblock %}

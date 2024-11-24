@@ -32,14 +32,4 @@ class HuespedesForm(forms.ModelForm):
 class ReservaForm(forms.ModelForm):
     class Meta:
         model = Reserva
-        fields = [
-            'nombre', 
-            'identificacion', 
-            'email', 
-            'telefono', 
-            'checkin', 
-            'checkout', 
-            'habitacion', 
-            'adultos'
-        ]
-
+        fields = ['nombre', 'identificacion', 'email', 'telefono', 'checkin', 'checkout', 'habitacion', 'adultos', 'menores']

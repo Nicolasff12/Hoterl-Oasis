@@ -1,0 +1,55 @@
+{% extends 'base.html' %} 
+{% block content %}
+
+<div class="container">
+    <h1>Tarjeta de Registro</h1>
+</div>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body">
+                    <h2>Detalle de tu Reserva</h2>
+
+                    <table>
+                        <tr>
+                            <th>Fecha de llegada</th>
+                            <td>{{ reserva.checkin }}</td>
+                        </tr>
+                        <tr>
+                            <th>Fecha de salida</th>
+                            <td>{{ reserva.checkout }}</td>
+                        </tr>
+                        <tr>
+                            <th>Número de habitación</th>
+                            <td>{{ reserva.numero_habitacion }}</td>
+                        </tr>
+                        <tr>
+                            <th>Número de huéspedes</th>
+                            <td>{{ total_huespedes }}</td> 
+                        </tr>
+                        <tr>
+                            <th>Tipo de habitación</th>
+                            <td>{{ reserva.tipo_habitacion }}</td>
+                        </tr>
+                        <tr>
+                            <th>Tarifa</th>
+                            <td>{{ reserva.tarifa }}</td>
+                        </tr>
+                        <tr>
+                            <th>Forma de pago</th>
+                            <td>{{ reserva.forma_pago }}</td>
+                        </tr>
+                    </table>
+
+                    <div class="col-12">
+                        <a href="/" class="btn btn-primary">Volver a Inicio</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

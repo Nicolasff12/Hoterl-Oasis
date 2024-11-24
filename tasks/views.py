@@ -222,16 +222,94 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .forms import ReservaForm
+from django.contrib import messages
 
 def hacer_reserva(request):
     if request.method == "POST":
         form = ReservaForm(request.POST)
+        print("Datos recibidos del formulario:", request.POST)  # Depuración
+
         if form.is_valid():
-            form.save()  # Guarda el formulario directamente en la base de datos
-            return HttpResponse("Reserva guardada correctamente.", status=201)
+            form.save()  # Guarda la reserva en la base de datos
+            messages.success(request, "¡Reserva guardada correctamente!")
+            return redirect( 'home')
         else:
-            # Muestra los errores de validación
-            return render(request, 'reserva_form.html', {'form': form})
+            # Imprime errores del formulario en la consola para depuración
+            print("Errores en el formulario:", form.errors)
+
+            # Renderiza nuevamente el formulario con errores
+            return render(
+                request,
+                'reserva_form.html',
+                {
+                    'form': form,
+                    'errors': form.errors,  # Muestra errores al usuario si es necesario
+                }
+            )
     else:
         form = ReservaForm()
         return render(request, 'reserva_form.html', {'form': form})
+    
+
+
+def validar_checkin(request):
+    if request.method == "POST":
+        # Obtén la cédula de la persona desde el formulario
+        cedula = request.POST.get('id')
+
+        try:
+            # Busca la reserva en la base de datos por cédula
+            reserva = Reserva.objects.get(identificacion=cedula)
+            
+            # Redirige a la tarjeta de registro con los datos de la reserva
+            return redirect('tarjeta_registro', id=reserva.id)
+        except Reserva.DoesNotExist:
+            # Muestra un mensaje de error si no encuentra la reserva
+            messages.error(request, "No se encontró una reserva con esa cédula.")
+            return render(request, 'checkin.html')
+
+    return render(request, 'checkin.html')  # Si no es
+
+
+def tarjeta_registro(request, id):
+    reserva = Reserva.objects.get(id=id)
+    
+    return render(request, 'tarjeta_registro.html', {
+        'reserva': reserva,
+        'total_huespedes': reserva.total_huespedes  # Usamos la propiedad
+    })
+
+
+
+def checkin(request):
+    if request.method == "POST":
+        # Obtener el valor del botón que se presionó
+        action = request.POST.get('action')
+
+        if action == 'validar_reserva':
+            # Lógica para validar la reserva
+            identificacion = request.POST.get('id')
+
+            # Buscar todas las reservas que coincidan con la identificación
+            reservas = Reserva.objects.filter(identificacion=identificacion)
+
+            if reservas.exists():
+                if reservas.count() == 1:
+                    # Si solo hay una reserva, la seleccionamos
+                    reserva = reservas.first()
+                    # Pasar los datos de la reserva a la plantilla
+                    return render(request, 'tarjeta_registro.html', {'reserva': reserva})
+                else:
+                    # Si hay múltiples reservas, mostramos un mensaje de error
+                    messages.error(request, "Se encontraron múltiples reservas con la misma identificación. Por favor, verifica los datos.")
+                    return redirect('checkin')
+            else:
+                messages.error(request, "No se encontró ninguna reserva con esa identificación.")
+                return redirect('checkin')
+
+        elif action == 'validar_ocr':
+            # Lógica futura para validación con OCR (por ahora solo muestra un mensaje)
+            messages.success(request, "Funcionalidad de OCR en proceso.")
+            return redirect('checkin')
+
+    return render(request, 'checkin.html')
