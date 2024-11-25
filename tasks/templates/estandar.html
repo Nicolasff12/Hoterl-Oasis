@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es">
+    {% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Habitación Individual</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="content">
+    <a href="/" class="btn">Volver</a>
+    <h1 class="text-center">Habitación Individual</h1>
+    <img src="{% static 'img/habitacion1.jpg' %}" alt="Habitación Estándar" class="d-block mx-auto img-fluid w-50 my-3">
+    <p class="text-center">Precio por persona: <strong>$50,000</strong></p>
+
+    <p class="text-center">
+    <ul>
+        <li>Una habitación cómoda y funcional diseñada para satisfacer las necesidades básicas de los huéspedes. Cuenta con una cama sencilla o doble, baño privado, escritorio y televisión. Es ideal para viajeros que buscan una estancia económica y práctica.</li>
+    </ul>
+    </p>
+
+    <div class="text-center mt-4">
+        <a href="/reserva" class="btn btn-primary">Reservar Ahora</a>
+    </div>
+</div>
+</body>
+</html>

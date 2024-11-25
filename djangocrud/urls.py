@@ -37,6 +37,9 @@ urlpatterns = [
     path('reserva', views.reserva_form, name='reserva'),
     path('reservar/', views.hacer_reserva, name='reservar'),
     path('checkin/', views.validar_checkin, name='checkin'),
+    path('estandar/', views.estandar, name='estandar'),
+    path('deluxe/', views.deluxe, name='deluxe'),
+    path('suite/', views.suite, name='suite'),
     path('tarjetaRegistro/<int:id>/', views.tarjeta_registro, name='tarjeta_registro'),
     path('procesar-cedula/', views.procesar_cedulas, name='procesar_cedula'),
     
