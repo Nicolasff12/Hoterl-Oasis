@@ -18,6 +18,9 @@ from PIL import Image
 import io
 import re
 
+
+
+
 # Create your views here.
 
 
@@ -328,12 +331,6 @@ def checkin(request):
 
 
 
-
-
-from django.http import JsonResponse
-from PIL import Image
-import pytesseract
-import re
 
 def procesar_cedulas(request):
     if request.method == 'POST' and 'documento_adjunto' in request.FILES:
