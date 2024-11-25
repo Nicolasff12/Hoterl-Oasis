@@ -72,6 +72,15 @@ def home(request):
 def check_in(request):
     return render(request, 'check_in.html')
 
+def estandar(request):
+    return render(request, 'estandar.html')
+
+def deluxe(request):
+    return render(request, 'deluxe.html')
+
+def suite(request):
+    return render(request, 'suite.html')
+
 
 def check_out(request):
     return render(request, 'check_out.html')

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es">
+    {% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Habitación Individual</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="container mt-4">
+    <a href="/" class="btn">Volver</a>
+    <h1 class="text-center">Habitación Individual</h1>
+    <img src="{% static 'img/habitacion3.jpg' %}" alt="Suite" class="d-block mx-auto img-fluid w-50 my-3">
+    <p class="text-center">Precio por persona: <strong>$100,000</strong></p>
+
+    <p class="text-center">
+    <ul>
+        <li>La opción más lujosa y exclusiva del hotel. Incluye áreas separadas de dormitorio y sala de estar, con decoraciones sofisticadas, jacuzzi, servicios personalizados, y detalles premium como batas, zapatillas y tecnología avanzada. Ideal para ocasiones especiales o viajes de lujo.</li>
+    </ul>
+    </p>
+
+    <div class="text-center mt-4">
+        <a href="/reserva" class="btn btn-primary">Reservar Ahora</a>
+    </div>
+</div>
+</body>
+</html>
