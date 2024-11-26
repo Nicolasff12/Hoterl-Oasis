@@ -90,7 +90,7 @@ def check_out(request):
 
 
 def tarjetaRegistro(request):
-    return render(request, 'tarjetaRegistro.html')
+    return render(request, 'tarjeta_Registro.html')
 
 
 @login_required
