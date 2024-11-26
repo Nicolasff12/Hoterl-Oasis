@@ -17,6 +17,7 @@ import pytesseract
 from PIL import Image
 import io
 import re
+import random
 
 
 
@@ -281,6 +282,10 @@ def validar_checkin(request):
             # Busca la reserva en la base de datos por cédula
             reserva = Reserva.objects.get(identificacion=cedula)
             
+            if not reserva.numero_habitacion:
+                reserva.numero_habitacion = random.randint(100, 200)
+                reserva.save()
+
             # Redirige a la tarjeta de registro con los datos de la reserva
             return redirect('tarjeta_registro', id=reserva.id)
         except Reserva.DoesNotExist:
@@ -293,9 +298,16 @@ def validar_checkin(request):
 def tarjeta_registro(request, id):
     reserva = Reserva.objects.get(id=id)
     
+    if not reserva.numero_habitacion:
+            reserva.numero_habitacion = random.randint(100, 200)
+            reserva.save()
+    
+
     return render(request, 'tarjeta_registro.html', {
         'reserva': reserva,
-        'total_huespedes': reserva.total_huespedes  # Usamos la propiedad
+        'total_huespedes': reserva.total_huespedes,
+        'valor': reserva.valor,
+        'estado': reserva.estado   # Usamos la propiedad
     })
 
 
