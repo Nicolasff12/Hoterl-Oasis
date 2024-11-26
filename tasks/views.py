@@ -248,9 +248,11 @@ def hacer_reserva(request):
         print("Datos recibidos del formulario:", request.POST)  # Depuración
 
         if form.is_valid():
-            form.save()  # Guarda la reserva en la base de datos
+            reserva = form.save()  # Guarda la reserva en la base de datos
+            reserva_id = reserva.id  # Obtén el ID de la reserva guardada
+
             messages.success(request, "¡Reserva guardada correctamente!")
-            return redirect( 'home')
+            return redirect("https://pasarela-oasis.vercel.app/?reserva=" + str(reserva_id))
         else:
             # Imprime errores del formulario en la consola para depuración
             print("Errores en el formulario:", form.errors)
