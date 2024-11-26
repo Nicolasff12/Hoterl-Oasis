@@ -1,88 +1,142 @@
-{% extends 'base.html' %} 
-{% block content %}
-
+{% extends 'base.html' %} {% block content %} {% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/estilos.css' %}" />
 <div class="container">
-    <h1>Check-In</h1>
+  <h1>Check-In</h1>
 </div>
 
 <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-body">
-                    <form class="row g-3 needs-validation" method="POST" action="{% url 'checkin' %}" enctype="multipart/form-data" novalidate>
-                        {% csrf_token %}
-                        <div class="col-md-6">
-                            <label for="documento_adjunto" class="form-label">Adjuntar documento de identidad:</label>
-                            <input type="file" class="form-control" id="documento_adjunto" name="documento_adjunto" accept=".jpg,.jpeg,.png,.pdf" required>
-                            <div class="invalid-feedback">
-                                Por favor, adjunta un documento de identidad.
-                            </div>
-                    
-                            <!-- Botón para Validar OCR -->
-                            <div class="col-12">
-                                <button class="btn btn-primary" type="button" id="validar_ocr_btn">Validar OCR</button>
-                            </div>
-                    
-                            <!-- Formulario de datos personales -->
-                            <div>
-                                <label for="nombre">Nombre:</label>
-                                <input type="text" class="form-control" id="nombre" name="nombre" required>
-                            </div>
-                            <div>
-                                <label for="apellido">Apellido:</label>
-                                <input type="text" class="form-control" id="apellido" name="apellido" required>
-                            </div>
-                            <div>
-                                <label for="id">Identificación (Cédula):</label>
-                                <input type="text" class="form-control" id="id" name="id" required>
-                            </div>
-                    
-                            <div>
-                                <label for="numero_reserva">Número de reserva (opcional)</label>
-                                <input type="text" class="form-control" id="numero_reserva" name="numero_reserva">
-                            </div>
-                    
-                            <!-- Segundo botón: Validar Reserva -->
-                            <div class="col-12">
-                                <button class="btn btn-success" type="submit" name="action" value="validar_reserva">Validar Reserva</button>
-                            </div>
-                    
-                        </div>
-                    </form>
-                    
-                </div>
+  <div class="row justify-content-center">
+    <div class="col-md-8 mx-auto">
+      <div class="card">
+        <div class="card-body">
+          <form
+            class="row m-0 needs-validation col-12"
+            method="POST"
+            action="{% url 'checkin' %}"
+            enctype="multipart/form-data"
+            novalidate
+          >
+            {% csrf_token %}
+            <div class="col-md-12">
+              <label for="documento_adjunto" class="form-label"
+                >Adjuntar documento de identidad:</label
+              >
+              <input
+                type="file"
+                class="form-control"
+                id="documento_adjunto"
+                name="documento_adjunto"
+                accept=".jpg,.jpeg,.png,.pdf"
+                required
+              />
+              <div class="invalid-feedback">
+                Por favor, adjunta un documento de identidad.
+              </div>
+
+              <!-- Botón para Validar OCR -->
+              <div class="col-12">
+                <button
+                  class="btn btn-primary"
+                  type="button"
+                  id="validar_ocr_btn"
+                >
+                  Validar OCR
+                </button>
+              </div>
+
+              <!-- Formulario de datos personales -->
+              <div>
+                <label for="nombre">Nombre:</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="nombre"
+                  name="nombre"
+                  required
+                />
+              </div>
+              <div>
+                <label for="apellido">Apellido:</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="apellido"
+                  name="apellido"
+                  required
+                />
+              </div>
+              <div>
+                <label for="id">Identificación (Cédula):</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="id"
+                  name="id"
+                  required
+                />
+              </div>
+
+              <div>
+                <label for="numero_reserva">Número de reserva (opcional)</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="numero_reserva"
+                  name="numero_reserva"
+                />
+              </div>
+
+              <!-- Segundo botón: Validar Reserva -->
+              <div class="col-12 mt-4">
+                <button
+                  class="btn btn-success"
+                  type="submit"
+                  name="action"
+                  value="validar_reserva"
+                >
+                  Validar Reserva
+                </button>
+              </div>
             </div>
+          </form>
         </div>
+      </div>
     </div>
+  </div>
 </div>
 
 <script>
-    document.getElementById('validar_ocr_btn').addEventListener('click', function() {
-        var formData = new FormData();
-        formData.append("documento_adjunto", document.getElementById('documento_adjunto').files[0]);
+  document
+    .getElementById("validar_ocr_btn")
+    .addEventListener("click", function () {
+      var formData = new FormData();
+      formData.append(
+        "documento_adjunto",
+        document.getElementById("documento_adjunto").files[0]
+      );
 
-        fetch("{% url 'procesar_cedula' %}", {
-            method: 'POST',
-            body: formData,
-            headers: {
-                'X-CSRFToken': '{{ csrf_token }}'
-            }
+      fetch("{% url 'procesar_cedula' %}", {
+        method: "POST",
+        body: formData,
+        headers: {
+          "X-CSRFToken": "{{ csrf_token }}",
+        },
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.nombre) {
+            document.getElementById("nombre").value = data.nombre;
+            document.getElementById("apellido").value = data.apellido;
+            document.getElementById("id").value = data.id;
+            document.getElementById("fecha_nacimiento").value =
+              data.fecha_nacimiento;
+          } else {
+            alert("Error al procesar la cédula");
+          }
         })
-        .then(response => response.json())
-        .then(data => {
-            if (data.nombre) {
-                document.getElementById('nombre').value = data.nombre;
-                document.getElementById('apellido').value = data.apellido;
-                document.getElementById('id').value = data.id;
-                document.getElementById('fecha_nacimiento').value = data.fecha_nacimiento;
-            } else {
-                alert('Error al procesar la cédula');
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            alert('Hubo un error con el OCR.');
+        .catch((error) => {
+          console.error("Error:", error);
+          alert("Hubo un error con el OCR.");
         });
     });
 </script>

@@ -12,8 +12,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <style>
-    body {
-        font-family: Arial, sans-serif;
+.montserrat {
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+}
+
+a{
+    text-decoration: none;
+    color: black
+}
+
+.title_rooms{
+    text-align: center !important;
+}
+
+body {
+  font-family: "Montserrat", sans-serif;
         background-color: #f4f4f4;
         margin: 0;
         padding: 0;
@@ -57,6 +73,7 @@
     }
     .content {
         padding: 2rem;
+        padding-bottom: 0px;
     }
     .content h2 {
         text-align: center;
@@ -141,28 +158,28 @@
             <div class="room-card">
                 <a href="/estandar" class="room-link">
                 <img src="{% static 'img/habitacion1.jpg' %}" alt="Habitación Estándar">
-                <h3>Habitación Estándar</h3>
+                <h3 class="title_rooms">Habitación Estándar</h3>
                 <p>Comodidad y sencillez para su estadía perfecta.</p>
             </a>
             </div>
             <div class="room-card">
                 <a href="/deluxe" class="room-link">
                 <img src="{% static 'img/habitacion2.jpg' %}"  alt="Habitación Deluxe">
-                <h3>Habitación Deluxe</h3>
+                <h3 class="title_rooms mt-5">Habitación Deluxe</h3>
                 <p>Amplias habitaciones con vista panorámica.</p>
             </a>
             </div>
             <div class="room-card">
                 <a href="/suite" class="room-link">
                 <img src="{% static 'img/habitacion3.jpg' %}"  alt="Suite">
-                <h3>Suite</h3>
+                <h3 class="title_rooms mt-5">Suite</h3>
                 <p>Lujo y elegancia en cada detalle.</p>
             </a>
             </div>
         </div>
     </section>
 
-    <section id="politicas" class="policy-details">
+    <section id="politicas" class="policy-details mt-4">
         <h2>Políticas del Hotel</h2>
         <ul class="policy-list">
             <li>

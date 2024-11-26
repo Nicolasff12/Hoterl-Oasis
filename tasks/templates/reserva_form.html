@@ -1,6 +1,4 @@
-{% extends "base.html" %}
-
-{% block content %}
+{% extends "base.html" %} {% block content %}
 
 <!DOCTYPE html>
 <html lang="es">
@@ -16,26 +14,11 @@
     />
   </head>
   <body>
-    <!-- Barra de navegación -->
-    <header>
-      <nav>
-        <ul>
-          <li><a href="#">Inicio</a></li>
-          <li><a href="#">Habitaciones</a></li>
-          <li><a href="#">Servicios</a></li>
-          <li><a href="#">Contacto</a></li>
-        </ul>
-      </nav>
-    </header>
-    <h3>HOTEL OASIS</h3>
-
-    <h1>RESERVA EN LINEA</h1>
-
     <!-- Sección principal para la reserva -->
     <section class="reserva-hotel">
       <form class="form-reserva" action="{% url 'reservar' %}" method="POST">
-          {% csrf_token %}
-      
+        {% csrf_token %}
+
         <label for="nombre">Nombre:</label>
         <input type="text" id="nombre" name="nombre" required />
 
@@ -62,23 +45,23 @@
         </select>
         <label for="habitacion">Adultos:</label>
         <select id="Personas" name="adultos" required>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
         </select>
 
         <label for="habitacion">Menores:</label>
         <select id="Personas" name="menores" required>
-            <option value="0">0</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
+          <option value="0">0</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
         </select>
         <button type="submit">Reservar ahora</button>
       </form>
