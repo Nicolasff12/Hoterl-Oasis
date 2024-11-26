@@ -23,6 +23,7 @@ class Reserva(models.Model):
     telefono = models.CharField(max_length=15)
     checkin = models.DateField()
     checkout = models.DateField()
+    numero_habitacion = models.IntegerField(null=True, blank=True)
     estado = models.CharField(max_length=100)
     valor = models.CharField(max_length=100)
     habitacion = models.CharField(max_length=50, choices=[
